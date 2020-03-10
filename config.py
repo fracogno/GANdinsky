@@ -50,7 +50,8 @@ sched       = EasyDict()                                    # Options for train.
 grid        = EasyDict(size='1080p', layout='random')       # Options for train.setup_snapshot_image_grid().
 
 # Dataset (choose one).
-desc += 'self-portrait';         dataset = EasyDict(tfrecord_dir='self-portrait'); train.mirror_augment = True
+desc += 'cubism';         dataset = EasyDict(tfrecord_dir='cubism'); train.mirror_augment = True
+#desc += 'self-portrait';         dataset = EasyDict(tfrecord_dir='self-portrait'); train.mirror_augment = True
 #desc += 'abstract';		 dataset = EasyDict(tfrecord_dir='abstract'); train.mirror_augment = True
 #desc += 'landscapes';		 dataset = EasyDict(tfrecord_dir='landscapes'); train.mirror_augment = True
 #desc += 'nevus';                dataset = EasyDict(tfrecord_dir='nevus'); train.mirror_augment = True
