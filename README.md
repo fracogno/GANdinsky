@@ -1,7 +1,7 @@
 ```
 Generate art in 5 mins setup:
 
-# 1. Download art data using the script (https://github.com/robbiebarrat/art-DCGAN/blob/master/genre-scraper.py)
+# 1. Download data with the script (https://github.com/robbiebarrat/art-DCGAN/blob/master/genre-scraper.py)
 mkdir ./images
 python genre-scraper.py --output_dir ./images --style cubism
 
