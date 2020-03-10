@@ -15,6 +15,6 @@ module load openmpi3
 module load anaconda/3.6
 source activate /opt/ohpc/pub/apps/tensorflow_1.13
 
-srun -n 1 python dataset_tool.py create_from_images datasets/cubism/ ./processed-images/cubism
-#srun -n 1 python train.py
+#srun -n 1 python dataset_tool.py create_from_images datasets/cubism/ ./processed-images/cubism
+srun -n 1 python train.py
 #srun -n 1 python import_example.py

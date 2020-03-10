@@ -18,8 +18,8 @@ class EasyDict(dict):
 #----------------------------------------------------------------------------
 # Paths.
 
-data_dir = '/scratch/cai/progressive_growing_of_gans/datasets'
-result_dir = '/scratch/cai/progressive_growing_of_gans/results'
+data_dir = 'datasets'
+result_dir = 'results'
 
 #----------------------------------------------------------------------------
 # TensorFlow options.
