@@ -4,7 +4,7 @@ import numpy as np
 import glob
 import os
 
-NAME = "cubism"
+NAME = "baroque"
 MIN_SIZE = 350
 
 os.mkdir("./processed-images/" + NAME)
