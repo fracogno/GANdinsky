@@ -6,24 +6,31 @@ import PIL.Image
 # Initialize TensorFlow session.
 tf.InteractiveSession()
 
-# Import official CelebA-HQ networks.
-with open('/scratch/cai/progressive_growing_of_gans/results/002-pganabstract-preset-v2-1gpu-fp32/network-snapshot-009900.pkl', 'rb') as file:
-    G, D, Gs = pickle.load(file)
+# Variables
+TOTAL = 0
+ckps = ["000-pgancubism-preset-v2-1gpu-fp32", "001-pganself-portrait-preset-v2-1gpu-fp32", "002-pganbaroque-preset-v2-1gpu-fp32"]
+imagesToGenerate = 50
 
-# Generate latent vectors.
-latents = np.random.randn(100, *Gs.input_shapes[0][1:])
-#latents = latents[[477, 56, 83, 887, 583, 391, 86, 340, 341, 415]] # hand-picked top-10
+for ckp in ckps:
+	for epoch in range(10500, 12001, 100):
+		# Import official networks
+		with open('./results/' + ckp + '/network-snapshot-0' + str(epoch) + '.pkl', 'rb') as file:
+		    G, D, Gs = pickle.load(file)
 
-# Generate dummy labels (not used by the official networks).
-labels = np.zeros([latents.shape[0]] + Gs.input_shapes[1][1:])
+		# Generate latent vectors.
+		latents = np.random.randn(imagesToGenerate, *Gs.input_shapes[0][1:])
 
-# Run the generator to produce a set of images.
-images = Gs.run(latents, labels)
+		# Generate dummy labels (not used by the official networks).
+		labels = np.zeros([latents.shape[0]] + Gs.input_shapes[1][1:])
 
-# Convert images to PIL-compatible format.
-images = np.clip(np.rint((images + 1.0) / 2.0 * 255.0), 0.0, 255.0).astype(np.uint8) # [-1,1] => [0,255]
-images = images.transpose(0, 2, 3, 1) # NCHW => NHWC
+		# Run the generator to produce a set of images.
+		images = Gs.run(latents, labels)
 
-# Save images as PNG.
-for idx in range(images.shape[0]):
-    PIL.Image.fromarray(images[idx], 'RGB').save('/clusterdata/s4559398/img' + str(np.random.rand(1)[0]) + '.png')
+		# Convert images to PIL-compatible format.
+		images = np.clip(np.rint((images + 1.0) / 2.0 * 255.0), 0.0, 255.0).astype(np.uint8) # [-1,1] => [0,255]
+		images = images.transpose(0, 2, 3, 1) # NCHW => NHWC
+
+		# Save images as PNG.
+		for idx in range(images.shape[0]):
+		    PIL.Image.fromarray(images[idx], 'RGB').save('./generated/' + str(TOTAL) + '.png')
+		    TOTAL += 1
